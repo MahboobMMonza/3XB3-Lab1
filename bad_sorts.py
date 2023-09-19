@@ -79,17 +79,22 @@ def warmup():
     exp1_scaling_times(100, 100, 10, selection_sort)
 
 
+# Function runs repeated_size_sorts to execute sorting algorithms on list sizes of upto size max_n
 def exp1_scaling_times(max_n: int, repetitions: int, benchmarks: int, sorter: callable) -> tuple[
     list[int], list[float]]:
     sizes = [(i + 1) * max_n // benchmarks for i in range(benchmarks)]
+    # list to store execution times
     times = [0.0] * benchmarks
     for i, size in enumerate(sizes):
+        # measure execution times for a given input size and sorting algorithm
         current_times = repeated_size_sorts(size, repetitions, sorter)
-        times[i] = sum(current_times) / repetitions
 
+        # Calculate the average execution time for this input size
+        times[i] = sum(current_times) / repetitions
     return sizes, times
 
 
+# Function to repeatedly measure the execution time of a sorting algorithm for a specific input size
 def repeated_size_sorts(list_size: int, repetition: int, sorter: callable) -> list[float]:
     time = [0.0] * repetition
 
@@ -102,16 +107,27 @@ def repeated_size_sorts(list_size: int, repetition: int, sorter: callable) -> li
     return time
 
 
+def run_experiment1():
+    # Set parameters for the experiment
+    max_n, reps, bmk = 2000, 20, 20
+
+    insert_sizes, times_insertion = exp1_scaling_times(max_n, reps, bmk, insertion_sort)
+    bubble_sizes, times_bubble = exp1_scaling_times(max_n, reps, bmk, bubble_sort)
+    selection_sizes, times_selection = exp1_scaling_times(max_n, reps, bmk, selection_sort)
+
+    # Plot the results on one graph
+    plt.plot(insert_sizes, times_insertion, linewidth=2, label=r"Insertion Sort")
+    plt.plot(bubble_sizes, times_bubble, linewidth=2, label=r"bubble Sort")
+    plt.plot(selection_sizes, times_selection, linewidth=2, label=r"Selection Sort")
+
+    plt.xlabel("List Length")
+    plt.ylabel("Average execution time (s)")
+    plt.legend(fontsize=14)
+    plt.show()
+
+
 if __name__ == '__main__':
     print("Warming up...")
     warmup()
     print("Running Tests")
-    max_n, reps, bmk = 100, 20, 10
-    insert_sizes, times_insertion = exp1_scaling_times(max_n, reps, bmk, insertion_sort)
-    bubble_sizes, times_bubble = exp1_scaling_times(max_n, reps, bmk, bubble_sort)
-    selection_sizes, times_selection = exp1_scaling_times(max_n, reps, bmk, selection_sort)
-    plt.plot(insert_sizes, times_insertion, linewidth=2, label=r"Insertion Sort")
-    plt.plot(bubble_sizes, times_bubble, linewidth=2, label=r"bubble Sort")
-    plt.plot(selection_sizes, times_selection, linewidth=2, label=r"Selection Sort")
-    plt.legend(fontsize=14)
-    plt.show()
+    run_experiment1()
