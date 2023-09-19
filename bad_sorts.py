@@ -79,14 +79,15 @@ def warmup():
     exp1_scaling_times(100, 100, 10, selection_sort)
 
 
-def exp1_scaling_times(max_n: int, repetitions: int, benchmarks: int, sorter: callable) -> list[list[int], list[float]]:
+def exp1_scaling_times(max_n: int, repetitions: int, benchmarks: int, sorter: callable) -> tuple[
+    list[int], list[float]]:
     sizes = [(i + 1) * max_n // benchmarks for i in range(benchmarks)]
     times = [0.0] * benchmarks
     for i, size in enumerate(sizes):
         current_times = repeated_size_sorts(size, repetitions, sorter)
         times[i] = sum(current_times) / repetitions
 
-    return [sizes, times]
+    return sizes, times
 
 
 def repeated_size_sorts(list_size: int, repetition: int, sorter: callable) -> list[float]:
