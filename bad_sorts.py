@@ -3,6 +3,9 @@ This file corresponds to the first graded lab of 2XC3.
 Feel free to modify and/or add functions to this file.
 """
 import random
+import timeit
+
+import matplotlib.pyplot as plt
 
 
 # Create a random list length "length" containing whole numbers between 0 and max_value inclusive
@@ -36,8 +39,8 @@ def insertion_sort(L):
 
 def insert(L, i):
     while i > 0:
-        if L[i] < L[i-1]:
-            swap(L, i-1, i)
+        if L[i] < L[i - 1]:
+            swap(L, i - 1, i)
             i -= 1
         else:
             return
@@ -49,8 +52,8 @@ def insert(L, i):
 def bubble_sort(L):
     for i in range(len(L)):
         for j in range(len(L) - 1):
-            if L[j] > L[j+1]:
-                swap(L, j, j+1)
+            if L[j] > L[j + 1]:
+                swap(L, j, j + 1)
 
 
 # ******************* Selection sort code *******************
@@ -64,7 +67,67 @@ def selection_sort(L):
 
 def find_min_index(L, n):
     min_index = n
-    for i in range(n+1, len(L)):
+    for i in range(n + 1, len(L)):
         if L[i] < L[min_index]:
             min_index = i
     return min_index
+
+
+def warmup():
+    exp1_scaling_times(100, 100, 10, insertion_sort)
+    exp1_scaling_times(100, 100, 10, bubble_sort)
+    exp1_scaling_times(100, 100, 10, selection_sort)
+
+
+# Function runs repeated_size_sorts to execute sorting algorithms on list sizes of upto size max_n
+def exp1_scaling_times(max_n: int, repetitions: int, benchmarks: int, sorter: callable) -> tuple[
+    list[int], list[float]]:
+    sizes = [(i + 1) * max_n // benchmarks for i in range(benchmarks)]
+    # list to store execution times
+    times = [0.0] * benchmarks
+    for i, size in enumerate(sizes):
+        # measure execution times for a given input size and sorting algorithm
+        current_times = repeated_size_sorts(size, repetitions, sorter)
+
+        # Calculate the average execution time for this input size
+        times[i] = sum(current_times) / repetitions
+    return sizes, times
+
+
+# Function to repeatedly measure the execution time of a sorting algorithm for a specific input size
+def repeated_size_sorts(list_size: int, repetition: int, sorter: callable) -> list[float]:
+    time = [0.0] * repetition
+
+    for i in range(repetition):
+        my_list = create_random_list(list_size, list_size)
+        start = timeit.default_timer()
+        sorter(my_list)
+        end = timeit.default_timer()
+        time[i] = end - start
+    return time
+
+
+def run_experiment1():
+    # Set parameters for the experiment
+    max_n, reps, bmk = 2000, 20, 20
+
+    insert_sizes, times_insertion = exp1_scaling_times(max_n, reps, bmk, insertion_sort)
+    bubble_sizes, times_bubble = exp1_scaling_times(max_n, reps, bmk, bubble_sort)
+    selection_sizes, times_selection = exp1_scaling_times(max_n, reps, bmk, selection_sort)
+
+    # Plot the results on one graph
+    plt.plot(insert_sizes, times_insertion, linewidth=2, label=r"Insertion Sort")
+    plt.plot(bubble_sizes, times_bubble, linewidth=2, label=r"bubble Sort")
+    plt.plot(selection_sizes, times_selection, linewidth=2, label=r"Selection Sort")
+
+    plt.xlabel("List Length")
+    plt.ylabel("Average execution time (s)")
+    plt.legend(fontsize=14)
+    plt.show()
+
+
+if __name__ == '__main__':
+    print("Warming up...")
+    warmup()
+    print("Running Tests")
+    run_experiment1()
