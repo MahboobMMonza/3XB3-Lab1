@@ -9,6 +9,8 @@ In contains traditional implementations for:
 
 Author: Vincent Maccio
 """
+import math
+
 
 # ************ Quick Sort ************
 def quicksort(L):
@@ -28,6 +30,7 @@ def quicksort_copy(L):
         else:
             right.append(num)
     return quicksort_copy(left) + [pivot] + quicksort_copy(right)
+
 
 # *************************************
 
@@ -68,6 +71,7 @@ def merge(left, right):
                 j += 1
     return L
 
+
 # *************************************
 
 # ************* Heap Sort *************
@@ -76,6 +80,7 @@ def heapsort(L):
     heap = Heap(L)
     for _ in range(len(L)):
         heap.extract_max()
+
 
 class Heap:
     length = 0
@@ -145,5 +150,8 @@ class Heap:
             whitespace = whitespace // 2
         return s
 
+
 # *************************************
-    
+
+if __name__ == '__main__':
+    print('Good Sorts')
