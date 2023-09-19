@@ -61,7 +61,7 @@ def swap(L, i, j):
 
 
 def create_plot(x_vals: list,
-                y_vals: list,
+                y_vals: list[list],
                 legend_labels: list[str],
                 title: str,
                 description: str,
