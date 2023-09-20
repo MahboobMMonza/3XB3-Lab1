@@ -67,7 +67,7 @@ def create_plot(x_vals: list,
                 description: str,
                 x_label: str,
                 y_label: str,
-) -> None:
+                ) -> None:
     for yv, legend in zip(y_vals, legend_labels):
         plt.plot(x_vals, yv, linewidth=2, label=legend, marker='o')
 
@@ -78,6 +78,14 @@ def create_plot(x_vals: list,
     plt.title(description, fontsize=10)
     plt.legend(fontsize=10)
     plt.show()
+
+
+def sort_checker(lst: list) -> bool:
+    for i in range(1, len(lst)):
+        if lst[i] < lst[i - 1]:
+            return False
+
+    return True
 
 
 if __name__ == '__main__':
