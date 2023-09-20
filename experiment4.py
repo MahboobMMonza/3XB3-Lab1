@@ -8,7 +8,7 @@ def run_experiment4() -> None:
     warmup_sorters([quicksort, mergesort, heapsort])
     # Run tests
     print('Starting tests')
-    max_n, reps, bmk = 40000, 25, 15
+    max_n, reps, bmk = 40000, 25, 20
     print('Starting Quick Sort')
     quick_sizes, times_quick = incrementing_list_size_tests(max_n, reps, bmk, quicksort)
     print('Starting Merge Sort')
@@ -26,7 +26,8 @@ def run_experiment4() -> None:
                 "Average Run Times of Quick, Merge and Heap Sorts",
                 f"{bmk} increments up to sizes of {max_n} with {reps} repetitions per size",
                 "List Sizes",
-                "Average Time (s)")
+                "Average Time (s)",
+                2)
 
 
 if __name__ == '__main__':
