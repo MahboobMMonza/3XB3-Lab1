@@ -80,7 +80,7 @@ def create_plot(x_vals: list,
     plt.show()
 
 
-def sort_checker(lst: list):
+def sort_checker(lst: list) -> bool:
     for i in range(1, len(lst)):
         if lst[i] < lst[i - 1]:
             return False
