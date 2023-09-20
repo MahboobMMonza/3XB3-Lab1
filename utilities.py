@@ -69,6 +69,8 @@ def create_plot(x_vals: list,
                 y_label: str,
                 scale: int = 1,
                 ) -> None:
+    height, width = plt.figure().get_figheight(), plt.figure().get_figwidth()
+    plt.figure(figsize=(scale * width, scale * height))
     for yv, legend in zip(y_vals, legend_labels):
         plt.plot(x_vals, yv, linewidth=2, label=legend, marker='o')
 
@@ -78,8 +80,6 @@ def create_plot(x_vals: list,
     plt.suptitle(title, fontsize=14)
     plt.title(description, fontsize=10)
     plt.legend(fontsize=10)
-    height, width = plt.figure().get_figheight(), plt.figure().get_figwidth()
-    plt.figure(figsize=(scale * width, scale * height))
     plt.show()
 
 
