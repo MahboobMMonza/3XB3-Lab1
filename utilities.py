@@ -67,6 +67,7 @@ def create_plot(x_vals: list,
                 description: str,
                 x_label: str,
                 y_label: str,
+                scale: int = 1,
                 ) -> None:
     for yv, legend in zip(y_vals, legend_labels):
         plt.plot(x_vals, yv, linewidth=2, label=legend, marker='o')
@@ -77,13 +78,20 @@ def create_plot(x_vals: list,
     plt.suptitle(title, fontsize=14)
     plt.title(description, fontsize=10)
     plt.legend(fontsize=10)
+    height, width = plt.figure().get_figheight(), plt.figure().get_figwidth()
+    plt.figure(figsize=(scale * width, scale * height))
     plt.show()
 
 
-def sort_checker(lst: list) -> bool:
-    for i in range(1, len(lst)):
-        if lst[i] < lst[i - 1]:
-            return False
+def confirm_sorter_correctness(sorter: callable) -> bool:
+    max_n, benchmarks, reps = 5000, 5, 5
+    for r in range(reps):
+        for length in range(max_n // benchmarks, max_n, max_n // benchmarks):
+            lst = create_random_list(length, 10000000)
+            ans = sorted(lst)
+            sorter(lst)
+            if lst != ans:
+                return False
 
     return True
 
