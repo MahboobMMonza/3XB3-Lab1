@@ -2,7 +2,7 @@ from bad_sorts import insertion_sort, bubble_sort, selection_sort
 from utilities import *
 
 
-def run_experiment1():
+def run_experiment1() -> None:
     # Run a warmup routine on the sorting algorithms to reduce cache miss errors, etc
     print('Warming up')
     warmup_sorters([insertion_sort, bubble_sort, selection_sort])
