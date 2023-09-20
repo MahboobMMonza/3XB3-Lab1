@@ -67,7 +67,7 @@ def create_plot(x_vals: list,
                 description: str,
                 x_label: str,
                 y_label: str,
-                scale: int=1,
+                scale: int = 1,
                 ) -> None:
     for yv, legend in zip(y_vals, legend_labels):
         plt.plot(x_vals, yv, linewidth=2, label=legend, marker='o')
