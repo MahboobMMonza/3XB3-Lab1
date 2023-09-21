@@ -9,7 +9,7 @@ def run_experiment3() -> None:
     warmup_sorters([insertion_sort, bubble_sort, selection_sort])
     # Run tests
     print('Starting tests')
-    max_n, reps, bmk = 4000, 15, 10
+    max_n, reps, bmk = 15000, 20, 15
     swaps = max_n * int(math.log(max_n)) // 2
     print(f'Using {swaps} random swaps')
     near_sorted_list = create_near_sorted_list(max_n,max_n,swaps)
