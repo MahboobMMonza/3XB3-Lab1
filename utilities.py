@@ -67,7 +67,7 @@ def create_plot(x_vals: list,
                 description: str,
                 x_label: str,
                 y_label: str,
-                scale: int = 1,
+                scale: float = 1,
                 ) -> None:
     height, width = plt.figure().get_figheight(), plt.figure().get_figwidth()
     plt.figure(figsize=(scale * width, scale * height))
@@ -101,7 +101,8 @@ def compare_plot_sorters(sorters: list[callable, 2],
                          sort_name: str,
                          max_n: int = 4000,
                          repetitions: int = 15,
-                         benchmarks: int = 10) -> None:
+                         benchmarks: int = 10,
+                         scale: float = 1) -> None:
     title = f'Average Run Times of {sort_name} Implementations'
     print(f'Running {title} Tests')
     print('Warming up')
@@ -120,7 +121,8 @@ def compare_plot_sorters(sorters: list[callable, 2],
                 title,
                 f"{benchmarks} increments up to sizes of {max_n} with {repetitions} repetitions per size",
                 "List Sizes",
-                "Average Time (s)")
+                "Average Time (s)",
+                scale)
 
 
 if __name__ == '__main__':
