@@ -96,5 +96,32 @@ def confirm_sorter_correctness(sorter: callable) -> bool:
     return True
 
 
+def compare_plot_sorters(sorters: list[callable, 2],
+                         legend_labels: list[str, 2],
+                         sort_name: str,
+                         max_n: int = 4000,
+                         repetitions: int = 15,
+                         benchmarks: int = 10) -> None:
+    title = f'Average Run Times of {sort_name} Implementations'
+    print(f'Running {title} Tests')
+    print('Warming up')
+    warmup_sorters(sorters)
+    y_vals = []
+    x_vals = None
+    for sorter, label in zip(sorters, legend_labels):
+        print(f'Starting {label}')
+        x_vals, time = incrementing_list_size_tests(max_n, repetitions, benchmarks, sorter)
+        y_vals.append(time)
+
+    print('Creating plots')
+    create_plot(x_vals,
+                y_vals,
+                legend_labels,
+                title,
+                f"{benchmarks} increments up to sizes of {max_n} with {repetitions} repetitions per size",
+                "List Sizes",
+                "Average Time (s)")
+
+
 if __name__ == '__main__':
     pass
