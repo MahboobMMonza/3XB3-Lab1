@@ -10,7 +10,7 @@ def run_experiment7() -> None:
     for name, old_sort, new_sort in zip(sorter_names, old_sorters, new_sorters):
         sorters = [old_sort, new_sort]
         legend_labels = [name.lower().replace(' ', ''), 'bottom_up_' + name.lower().replace(' ', '')]
-        compare_plot_sorters(sorters, legend_labels, name, 100000, 20, 20, 2)
+        compare_plot_sorters(sorters, legend_labels, name, 100000, 20, 20, 2.25)
 
 
 if __name__ == '__main__':
