@@ -1,7 +1,7 @@
 from utilities import confirm_sorter_correctness
 
 
-def bottom_up_merge_sort(lst: list):
+def bottom_up_mergesort(lst: list):
     size = len(lst)
     temp = [0] * size
     step = 2

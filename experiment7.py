@@ -1,12 +1,12 @@
 from good_sorts import mergesort
-from better_good_sorts import bottom_up_merge_sort
+from better_good_sorts import bottom_up_mergesort
 from utilities import *
 
 
 def run_experiment7() -> None:
     sorter_names = ['Merge Sort']
     old_sorters = [mergesort]
-    new_sorters = [bottom_up_merge_sort]
+    new_sorters = [bottom_up_mergesort]
     for name, old_sort, new_sort in zip(sorter_names, old_sorters, new_sorters):
         sorters = [old_sort, new_sort]
         legend_labels = [name.lower().replace(' ', ''), 'bottom_up_' + name.lower().replace(' ', '')]
