@@ -32,7 +32,7 @@ def bottom_up_mergesort(lst: list) -> None:
         step *= 2
 
 
-def dual_pivot_quicksort(lst: list) -> None:
+def dual_quicksort(lst: list) -> None:
     # Add left and right bounds for partition to the stack, right bound is excluded
     stack = [(0, len(lst))]
     # Instead of making recursive partition calls, use a stack to hold the arguments and a while loop to
@@ -74,5 +74,5 @@ def dual_pivot_quicksort(lst: list) -> None:
 
 
 if __name__ == '__main__':
-    # print(confirm_sorter_correctness(dual_pivot_quicksort))
+    # print(confirm_sorter_correctness(dual_quicksort))
     pass
