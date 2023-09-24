@@ -1,4 +1,5 @@
 import random
+import time
 import timeit
 
 import matplotlib.pyplot as plt
@@ -95,6 +96,12 @@ def confirm_sorter_correctness(sorter: callable) -> bool:
 
     return True
 
+def time_measure(sort_fucntion, input_list):
+    start_time = time.time()
+    sorted_list = sort_fucntion(input_list)
+    end_time = time.time()
+    time_elapsed = end_time - start_time
+    return sorted_list,time_elapsed
 
 if __name__ == '__main__':
     pass
