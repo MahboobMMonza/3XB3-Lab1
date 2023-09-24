@@ -74,4 +74,5 @@ def dual_pivot_quicksort(lst: list) -> None:
 
 
 if __name__ == '__main__':
-    print(confirm_sorter_correctness(dual_pivot_quicksort))
+    # print(confirm_sorter_correctness(dual_pivot_quicksort))
+    pass
