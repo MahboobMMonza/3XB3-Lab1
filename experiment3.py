@@ -22,18 +22,17 @@ def run_experiment3(length, max_value, num_swaps, repetitions) -> None:
         selection_avg = 0
 
         print(f'Starting tests for {swaps} swaps')
-        for _ in range(repetitions):
-            near_sorted_list = create_near_sorted_list(length, max_value, swaps)
+        near_sorted_list = create_near_sorted_list(length, max_value, swaps)
 
-            # Plot results in graph
-            _,time_insertion = time_measure(insertion_sort, near_sorted_list)
-            insertion_avg += time_insertion
+        #Plot the points
+        time_insertion = repeated_size_sorts(length, repetitions, insertion_sort, near_sorted_list)
+        insertion_avg += sum(time_insertion)
 
-            _,time_bubble = time_measure(bubble_sort, near_sorted_list)
-            bubble_avg += time_bubble
+        time_bubble = repeated_size_sorts(length, repetitions, bubble_sort, near_sorted_list)
+        bubble_avg += sum(time_bubble)
 
-            _, time_selection = time_measure(selection_sort, near_sorted_list)
-            selection_avg = time_selection
+        time_selection = repeated_size_sorts(length, repetitions, selection_sort, near_sorted_list)
+        selection_avg += sum(time_selection)
 
         insertion_avg /= repetitions
         bubble_avg /= repetitions

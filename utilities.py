@@ -1,5 +1,4 @@
 import random
-import time
 import timeit
 
 import matplotlib.pyplot as plt
@@ -28,11 +27,12 @@ def incrementing_list_size_tests(max_n: int,
 
 
 # Function to repeatedly measure the execution time of a sorting algorithm for a specific input size
-def repeated_size_sorts(list_size: int, repetitions: int, sorter: callable) -> list[float]:
+def repeated_size_sorts(list_size: int, repetitions: int, sorter: callable, my_list=None) -> list[float]:
     time = [0.0] * repetitions
 
     for i in range(repetitions):
-        my_list = create_random_list(list_size, list_size)
+        if my_list is None:
+            my_list = create_random_list(list_size, list_size)
         start = timeit.default_timer()
         sorter(my_list)
         end = timeit.default_timer()
@@ -96,12 +96,6 @@ def confirm_sorter_correctness(sorter: callable) -> bool:
 
     return True
 
-def time_measure(sort_fucntion, input_list):
-    start_time = time.time()
-    sorted_list = sort_fucntion(input_list)
-    end_time = time.time()
-    time_elapsed = end_time - start_time
-    return sorted_list,time_elapsed
 
 if __name__ == '__main__':
     pass
