@@ -44,8 +44,31 @@ def dual_quicksort(lst: list) -> None:
         # Choose pivot locations as left and right endpoints, and swap them if right point is smaller than left
         if lst[left] > lst[right - 1]:
             lst[left], lst[right - 1] = lst[right - 1], lst[left]
+        a, b = lst[left], lst[right - 1]
         # Do partition
-        cur_idx, left_bound, right_bound = left + 1, left, right - 1
+        left_bound, right_bound = left + 1, right - 1
+        less, between, greater = [], [], []
+        for value in lst[left_bound:right_bound]:
+            if value < a:
+                less.append(value)
+            elif value > b:
+                greater.append(value)
+            else:
+                between.append(value)
+
+        lst[left:left + len(less)] = less
+        lst[left + len(less)] = a
+        lst[left + len(less) + 1:left + len(less) + len(between) + 1] = between
+        lst[left + len(less) + len(between) + 1] = b
+        lst[left + len(less) + len(between) + 2:right] = greater
+        if len(less) > 1:
+            stack.append((left, left + len(less)))
+        if len(between) > 1:
+            stack.append((left + len(less) + 1, left + len(less) + len(between) + 1))
+        if len(greater) > 1:
+            stack.append((left + len(less) + len(between) + 2, right))
+
+        '''
         while cur_idx < right_bound:
             # Current value is less than the left pivot
             if lst[cur_idx] < lst[left]:
@@ -71,8 +94,12 @@ def dual_quicksort(lst: list) -> None:
         # partition(right_bound + 1, right_bound)
         if right - right_bound > 1:
             stack.append((right_bound + 1, right))
+        '''
 
 
 if __name__ == '__main__':
-    # print(confirm_sorter_correctness(dual_quicksort))
-    pass
+    my_list = [-9, -11, 23, 2, 45, 79, 24, 86, 69, 12, 100, 0, 45]
+    dual_quicksort(my_list)
+    print(my_list)
+    print(confirm_sorter_correctness(dual_quicksort))
+    # pass
