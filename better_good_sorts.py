@@ -38,68 +38,46 @@ def dual_quicksort(lst: list) -> None:
     # Instead of making recursive partition calls, use a stack to hold the arguments and a while loop to
     # partition along the arguments
     while stack:
-        # Partition bounds
+        # Get the partition bounds (right bound is exclusive)
         left, right = stack.pop()
-        # base cases of <= 1 difference between left and right, as well as when left and right span just 2 elements
         # Choose pivot locations as left and right endpoints, and swap them if right point is smaller than left
         if lst[left] > lst[right - 1]:
             lst[left], lst[right - 1] = lst[right - 1], lst[left]
-        a, b = lst[left], lst[right - 1]
-        # Do partition
+        left_pivot_value, right_pivot_value = lst[left], lst[right - 1]
+        # Set the left and right bounds for the partition
         left_bound, right_bound = left + 1, right - 1
+        # Create "buckets" for values based on their relation to the pivots
         less, between, greater = [], [], []
+        # Do partition on the sublist from after the left pivot to before the right pivot
         for value in lst[left_bound:right_bound]:
-            if value < a:
+            # Iterate each value in the sublist, and add them to the correct bucket depending on if they are < left
+            # pivot, > right pivot, or between the pivots
+            if value < left_pivot_value:
                 less.append(value)
-            elif value > b:
+            elif value > right_pivot_value:
                 greater.append(value)
             else:
                 between.append(value)
 
+        # Rewrite the elements in the sublist back as they were ordered in the partitioning
+        # [ values < left_pivot ], left_pivot, [ values between both pivots ], right_pivot, [ values > right_pivot]
         lst[left:left + len(less)] = less
-        lst[left + len(less)] = a
+        lst[left + len(less)] = left_pivot_value
+        # Add 1 every time a pivot is placed
         lst[left + len(less) + 1:left + len(less) + len(between) + 1] = between
-        lst[left + len(less) + len(between) + 1] = b
+        lst[left + len(less) + len(between) + 1] = right_pivot_value
+        # Add 1 every time a pivot is placed (now it should be +2)
         lst[left + len(less) + len(between) + 2:right] = greater
+        # Partition the left sublist if it isn't a singular element
         if len(less) > 1:
             stack.append((left, left + len(less)))
+        # Partition the between sublist if it isn't a singular element
         if len(between) > 1:
             stack.append((left + len(less) + 1, left + len(less) + len(between) + 1))
+        # Partition the right sublist if it isn't a singular element
         if len(greater) > 1:
             stack.append((left + len(less) + len(between) + 2, right))
 
-        '''
-        while cur_idx < right_bound:
-            # Current value is less than the left pivot
-            if lst[cur_idx] < lst[left]:
-                left_bound += 1
-                lst[left_bound], lst[cur_idx] = lst[cur_idx], lst[left_bound]
-                cur_idx += 1
-            elif lst[cur_idx] > lst[right - 1]:
-                # Whenever there is a swap with the right bound, don't change the iterator value because the swapped
-                # value needs to be checked
-                right_bound -= 1
-                lst[right_bound], lst[cur_idx] = lst[cur_idx], lst[right_bound]
-            else:
-                cur_idx += 1
-
-        lst[left_bound], lst[left] = lst[left], lst[left_bound]
-        lst[right_bound], lst[right - 1] = lst[right - 1], lst[right_bound]
-        # partition(left, left_bound)
-        if left_bound - left > 1:
-            stack.append((left, left_bound))
-        # partition(left_bound + 1, right_bound)
-        if right_bound - left_bound > 1:
-            stack.append((left_bound + 1, right_bound))
-        # partition(right_bound + 1, right_bound)
-        if right - right_bound > 1:
-            stack.append((right_bound + 1, right))
-        '''
-
 
 if __name__ == '__main__':
-    my_list = [-9, -11, 23, 2, 45, 79, 24, 86, 69, 12, 100, 0, 45]
-    dual_quicksort(my_list)
-    print(my_list)
-    print(confirm_sorter_correctness(dual_quicksort))
-    # pass
+    pass
