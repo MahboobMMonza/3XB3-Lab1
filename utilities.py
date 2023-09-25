@@ -31,7 +31,7 @@ def repeated_size_sorts(list_size: int, repetitions: int, sorter: callable, my_l
     time = [0.0] * repetitions
 
     for i in range(repetitions):
-        if my_list is None:
+        my_list = list_maker(list_size, list_size, swaps) if swaps > -1 else list_maker(list_size, list_size)
             my_list = create_random_list(list_size, list_size)
         start = timeit.default_timer()
         sorter(my_list)
