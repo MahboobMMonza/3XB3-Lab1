@@ -1,3 +1,4 @@
+import math
 import random
 import timeit
 
@@ -19,7 +20,7 @@ def incrementing_list_size_tests(max_n: int,
     times = [0.0] * benchmarks
     for i, size in enumerate(sizes):
         # measure execution times for a given input size and sorting algorithm
-        current_times = repeated_size_sorts(size, repetitions, sorter)
+        current_times = repeated_size_sorts(size, repetitions, sorter,False, create_random_list)
 
         # Calculate the average execution time for this input size
         times[i] = sum(current_times) / repetitions
@@ -27,12 +28,15 @@ def incrementing_list_size_tests(max_n: int,
 
 
 # Function to repeatedly measure the execution time of a sorting algorithm for a specific input size
-def repeated_size_sorts(list_size: int, repetitions: int, sorter: callable, my_list=None) -> list[float]:
+def repeated_size_sorts(list_size: int, repetitions: int, sorter: callable, swap_option: bool, list_maker: callable, my_list=None) -> list[float]:
     time = [0.0] * repetitions
 
     for i in range(repetitions):
-        my_list = list_maker(list_size, list_size, swaps) if swaps > -1 else list_maker(list_size, list_size)
-            my_list = create_random_list(list_size, list_size)
+        if swap_option == False:
+            my_list = list_maker(list_size,list_size)
+        else:
+            swaps = list_size*math.log(list_size)/2
+            my_list = list_maker(list_size,list_size,int(swaps))
         start = timeit.default_timer()
         sorter(my_list)
         end = timeit.default_timer()
