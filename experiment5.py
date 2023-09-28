@@ -9,8 +9,8 @@ def run_experiment5():
     reps = 50
     length = 500
     log_len = length.bit_length() - 1
-    max_swaps = (length * log_len // 2) * 50 // 100
-    step_size = 60
+    max_swaps = min((length * log_len // 2) * 50 // 100, 60)
+    step_size = 2
     num_swaps = [x for x in range(0, max_swaps + 1, step_size)]
     warmup_sorters([quicksort, mergesort, heapsort])
 
