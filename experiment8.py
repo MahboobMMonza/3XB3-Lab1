@@ -10,7 +10,7 @@ def run_experiment8() -> None:
     warmup_sorters([quicksort, mergesort, insertion_sort])
     # Run tests
     print('Starting tests')
-    max_n, reps, bmk = 20, 100, 20
+    max_n, reps, bmk = 100, 100, 25
     print('Starting Quick Sort')
     quick_sizes, times_quick = incrementing_list_size_tests(max_n, reps, bmk, quicksort)
     print('Starting Merge Sort')
