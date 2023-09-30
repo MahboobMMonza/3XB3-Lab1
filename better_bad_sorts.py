@@ -1,4 +1,4 @@
-from utilities import swap, confirm_sorter_correctness
+from utilities import swap
 
 
 # Selection sort arranging both min and max elements in one go
@@ -61,7 +61,3 @@ def insertion_sort2(lst: list) -> None:
             # Either lst[j - 1] <= temp, in which case overwrite the copied value
             # Or the value is at the beginning of the list
             lst[j] = temp
-
-
-if __name__ == '__main__':
-    print(confirm_sorter_correctness(bubble_sort2))

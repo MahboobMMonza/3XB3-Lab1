@@ -47,10 +47,3 @@ def find_min_index(L, n):
         if L[i] < L[min_index]:
             min_index = i
     return min_index
-
-
-if __name__ == '__main__':
-    print('Bad Sorts')
-    # warmup_sorters()
-    # print("Running Tests")
-    # run_experiment1()

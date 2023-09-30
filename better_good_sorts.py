@@ -1,6 +1,3 @@
-from utilities import confirm_sorter_correctness
-
-
 def bottom_up_mergesort(lst: list) -> None:
     size = len(lst)
     temp = [0] * size
@@ -77,7 +74,3 @@ def dual_quicksort(lst: list) -> None:
         # Partition the right sublist if it isn't a singular element
         if len(greater) > 1:
             stack.append((left + len(less) + len(between) + 2, right))
-
-
-if __name__ == '__main__':
-    pass
