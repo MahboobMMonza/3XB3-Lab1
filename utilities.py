@@ -18,12 +18,28 @@ def incrementing_list_size_tests(max_n: int,
     # list to store execution times
     times = [0.0] * benchmarks
     for i, size in enumerate(sizes):
-        # measure execution times for a given input size and sorting algorithm
+        # Measure execution times for a given input size and sorting algorithm
         current_times = repeated_size_sorts(size, repetitions, sorter)
-
         # Calculate the average execution time for this input size
         times[i] = sum(current_times) / repetitions
+
     return sizes, times
+
+
+def incrementing_swaps_tests(max_swaps,
+                             size: int,
+                             repetitions: int,
+                             benchmarks: int,
+                             sorter: callable) -> tuple[list[int], list[float]]:
+    swaps = [i * max_swaps // benchmarks for i in range(benchmarks + 1)]
+    times = [0.0] * (benchmarks + 1)
+    for i, swap_count in enumerate(swaps):
+        # Measure execution times for a given input size and sorting algorithm
+        current_times = repeated_size_sorts(size, repetitions, sorter, swap_count)
+        # Calculate the average execution time for this input size
+        times[i] = sum(current_times) / repetitions
+
+    return swaps, times
 
 
 # Function to repeatedly measure the execution time of a sorting algorithm for a specific input size
@@ -37,6 +53,7 @@ def repeated_size_sorts(list_size: int, repetitions: int, sorter: callable, swap
         sorter(my_list)
         end = timeit.default_timer()
         time[i] = end - start
+
     return time
 
 
@@ -53,6 +70,7 @@ def create_near_sorted_list(length, max_value, swaps):
         r1 = random.randint(0, length - 1)
         r2 = random.randint(0, length - 1)
         swap(L, r1, r2)
+
     return L
 
 
@@ -68,8 +86,7 @@ def create_plot(x_vals: list,
                 description: str,
                 x_label: str,
                 y_label: str,
-                scale: float = 1,
-                ) -> None:
+                scale: float = 1) -> None:
     height, width = plt.figure().get_figheight(), plt.figure().get_figwidth()
     plt.figure(figsize=(scale * width, scale * height))
     for yv, legend in zip(y_vals, legend_labels):
@@ -124,7 +141,3 @@ def compare_plot_sorters(sorters: list[callable, 2],
                 "List Sizes",
                 "Average Time (s)",
                 scale)
-
-
-if __name__ == '__main__':
-    pass
