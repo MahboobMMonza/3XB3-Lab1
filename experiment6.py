@@ -3,7 +3,7 @@ from good_sorts import quicksort
 from utilities import *
 
 
-def experiment6() -> None:
+def run_experiment6() -> None:
     name = 'Quick Sort'
     sorters = [quicksort, dual_quicksort]
     legend_labels = [name.lower().replace(' ', ''),
@@ -12,4 +12,4 @@ def experiment6() -> None:
 
 
 if __name__ == '__main__':
-    experiment6()
+    run_experiment6()
