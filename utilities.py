@@ -43,12 +43,11 @@ def incrementing_swaps_tests(max_swaps,
 
 
 # Function to repeatedly measure the execution time of a sorting algorithm for a specific input size
-def repeated_size_sorts(list_size: int, repetitions: int, sorter: callable, swaps: int = -1) -> list[float]:
+def repeated_size_sorts(size: int, repetitions: int, sorter: callable, swaps: int = -1) -> list[float]:
     time = [0.0] * repetitions
 
     for i in range(repetitions):
-        my_list = create_random_list(list_size, list_size) if swaps <= -1 else create_near_sorted_list(list_size,
-                                                                                                       list_size, swaps)
+        my_list = create_random_list(size, 3 * size) if swaps <= -1 else create_near_sorted_list(size, 3 * size, swaps)
         start = timeit.default_timer()
         sorter(my_list)
         end = timeit.default_timer()
