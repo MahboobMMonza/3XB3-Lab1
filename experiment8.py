@@ -1,7 +1,6 @@
-from good_sorts import quicksort, mergesort
 from bad_sorts import insertion_sort
+from good_sorts import quicksort, mergesort
 from utilities import *
-
 
 
 def run_experiment8() -> None:
@@ -10,7 +9,7 @@ def run_experiment8() -> None:
     warmup_sorters([quicksort, mergesort, insertion_sort])
     # Run tests
     print('Starting tests')
-    max_n, reps, bmk = 58, 100, 29
+    max_n, reps, bmk = 52, 200, 26
     print('Starting Quick Sort')
     quick_sizes, times_quick = incrementing_list_size_tests(max_n, reps, bmk, quicksort)
     print('Starting Merge Sort')
@@ -30,6 +29,7 @@ def run_experiment8() -> None:
                 "List Sizes",
                 "Average Time (s)",
                 2)
+
 
 if __name__ == '__main__':
     run_experiment8()
