@@ -150,8 +150,4 @@ class Heap:
             whitespace = whitespace // 2
         return s
 
-
 # *************************************
-
-if __name__ == '__main__':
-    print('Good Sorts')
