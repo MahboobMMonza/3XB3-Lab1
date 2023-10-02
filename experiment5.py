@@ -8,7 +8,7 @@ def run_experiment5():
     log_len = length.bit_length() - 1
     # Go up to 3% the number of swaps from statistically random list
     max_swaps = (length * log_len // 2) * 3 // 100
-    bmk = 30
+    bmk = 36
     warmup_sorters([quicksort, mergesort, heapsort])
     print('Starting Quick Sort')
     quick_times = incrementing_swaps_tests(max_swaps, length, reps, bmk, quicksort)[1]
@@ -24,7 +24,7 @@ def run_experiment5():
                 f' {length} with {reps} repetitions per swap count',
                 'Number of Swaps',
                 'Average Execution Time (s)',
-                2)
+                2.2)
 
 
 if __name__ == '__main__':
